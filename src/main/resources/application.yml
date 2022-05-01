@@ -1,0 +1,41 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: platform
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.0.106:3306/platform?serverTimezone=GMT%2B8
+    username: root
+    password: root
+  thymeleaf:
+    encoding: UTF-8
+    suffix: .html
+    prefix: classpath:/templates/
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: WEB-INF/**
+  freemarker:
+     cache: false
+# fastDFS
+fdfs:
+  connect-timeout: 60
+  so-timeout: 15000
+  thumb-image:
+    width: 150
+    height: 150
+  tracker-list:
+    - 192.168.0.103:8888
+
+
