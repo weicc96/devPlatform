@@ -9,13 +9,30 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://192.168.0.106:3306/platform?serverTimezone=GMT%2B8
+    url: jdbc:mysql://192.168.0.101:3306/platform?serverTimezone=GMT%2B8
     username: root
     password: root
-  thymeleaf:
-    encoding: UTF-8
-    suffix: .html
-    prefix: classpath:/templates/
+  redis:
+    # redis数据库索引(默认为0)，我们使用索引为3的数据库，避免和其他数据库冲突
+    database: 0
+    # redis服务器地址
+    host: 192.168.0.101
+    # redis端口（默认为6379）
+    port: 6379
+    # redis访问密码（默认为空）
+    password:
+    # redis连接超时时间（单位毫秒）
+    timeout: 0
+    # redis连接池配置
+    pool:
+      # 最大可用连接数（默认为8，负数表示无限）
+      max-active: 8
+      # 最大空闲连接数（默认为8，负数表示无限）
+      max-idle: 8
+      # 最小空闲连接数（默认为0，该值只有为正数才有用）
+      min-idle: 0
+      # 从连接池中获取连接最大等待时间（默认为-1，单位为毫秒，负数表示无限）
+      max-wait: -1
   servlet:
     multipart:
       enabled: true
@@ -36,6 +53,19 @@ fdfs:
     width: 150
     height: 150
   tracker-list:
-    - 192.168.0.103:8888
+    - 192.168.0.101:8888
 
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      # 删除前，注意这个配置
+      logic-not-delete-value: 0
+      # 删除后
+      logic-delete-value: 1
 
